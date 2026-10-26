@@ -1,0 +1,35 @@
+.profile-container {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-card {
+  width: 350px;
+  padding: 30px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.profile-card p {
+  margin: 10px 0;
+}
+
+.token {
+  font-size: 12px;
+  word-break: break-all;
+  color: #555;
+}
+
+.profile-card button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
