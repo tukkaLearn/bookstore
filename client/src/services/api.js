@@ -10,8 +10,6 @@ export async function apiRequest(path, options = {}) {
     },
   });
 
-  console.log(res);
-
   const data = await res.json().catch(() => null);
 
   if (!res.ok) {

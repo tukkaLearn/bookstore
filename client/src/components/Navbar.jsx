@@ -16,8 +16,8 @@ export default function Navbar() {
         <NavLink to="/" className="link">
           Home
         </NavLink>
-        <NavLink to="/products" className="link">
-          Products
+        <NavLink to="/saved-books" className="link">
+          Saved Book
         </NavLink>
         <NavLink to="/cart" className="link">
           Cart {cart.length > 0 && <span className="badge">{cart.length}</span>}

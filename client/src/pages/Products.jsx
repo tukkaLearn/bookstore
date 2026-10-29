@@ -1,7 +1,9 @@
 import { useParams } from "react-router-dom";
+import Comments from "../components/components/Comments";
 import Error from "../components/Error";
 import Loader from "../components/Loader";
 import useFetch from "../hooks/useFetch";
+import "./Products.css";
 
 export default function Products() {
   const { id } = useParams();
@@ -10,21 +12,31 @@ export default function Products() {
 
   if (loading) return <Loader />;
   if (error) return <Error message={error} />;
-
-  const book = data.data;
+  if (!data) return null;
 
   return (
-    <div>
-      ji
-      {/* <img src={book.book_image} alt={book.book_name} width="250" />
+    <div className="product-details">
+      <div className="product-image">
+        <img src={data.book_image} alt={data.book_name} />
+      </div>
 
-      <h1>{book.book_name}</h1>
-      <p>Author: {book.book_author}</p>
-      <p>₹{book.book_price}</p>
-      <p>⭐ {book.book_rating}</p>
+      <div className="product-info">
+        <h1>{data.book_name}</h1>
 
-      <h3>Description</h3>
-      <p>{book.book_description}</p> */}
+        <p className="product-author">
+          By {data.book_author || "Unknown Author"}
+        </p>
+
+        <p className="product-rating">⭐ {data.book_rating ?? 0} / 5</p>
+
+        <p className="product-price">₹{data.book_price}</p>
+
+        <div className="product-description">
+          <h3>About this book</h3>
+          <p>{data.book_description || "No description available."}</p>
+        </div>
+      </div>
+      <Comments bookId={id} />
     </div>
   );
 }

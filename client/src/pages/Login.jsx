@@ -23,7 +23,7 @@ export default function Login() {
 
     if (err) return setError(err);
 
-    navigate("/profile");
+    navigate("/");
   }
 
   return (
