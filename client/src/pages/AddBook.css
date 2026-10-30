@@ -1,0 +1,110 @@
+.add-book-page {
+  width: min(700px, 94%);
+  margin: 40px auto;
+}
+
+.add-book-container {
+  background: white;
+  padding: 30px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+.add-book-container h1 {
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.add-book-container > p {
+  color: #64748b;
+  margin-bottom: 25px;
+}
+
+.add-book-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+  flex: 1;
+}
+
+.add-book-field label {
+  color: #334155;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.add-book-field input,
+.add-book-field textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  font: inherit;
+  outline: none;
+}
+
+.add-book-field input:focus,
+.add-book-field textarea:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.add-book-field textarea {
+  resize: vertical;
+}
+
+.add-book-row {
+  display: flex;
+  gap: 18px;
+}
+
+.add-book-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.add-book-actions button {
+  border: none;
+  padding: 11px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.add-book-actions button[type="submit"] {
+  background: #4f46e5;
+  color: white;
+}
+
+.add-book-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.add-book-cancel {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.add-book-error {
+  padding: 12px;
+  background: #fee2e2;
+  color: #b91c1c;
+  border-radius: 7px;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 550px) {
+  .add-book-container {
+    padding: 20px;
+  }
+
+  .add-book-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}

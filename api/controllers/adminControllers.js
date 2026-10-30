@@ -11,7 +11,7 @@ export const getAllReaders = async (req, res) => {
             reader_location,
             reader_avatar,
             book_id,
-            isAdmin,
+            reader_role,
             created_at
           FROM book_readers
           ORDER BY reader_id DESC
@@ -74,23 +74,43 @@ export const deleteReaderById = async (req, res) => {
     const { id } = req.params;
 
     if (!id || !Number.isInteger(Number(id))) {
-      return res.status(400).json({
-        error: "Invalid reader ID",
+      return res.status(400).json({ error: "Invalid reader ID" });
+    }
+
+    const [reader] = await makePool().execute(
+      `SELECT reader_id FROM book_readers WHERE reader_id = ?`,
+      [Number(id)],
+    );
+
+    if (reader.length === 0) {
+      return res.status(404).json({ error: "Reader not found" });
+    }
+
+    const [comments] = await makePool().execute(
+      `SELECT comment_id FROM comments WHERE reader_id = ? LIMIT 1`,
+      [Number(id)],
+    );
+
+    if (comments.length > 0) {
+      return res.status(409).json({
+        error: "Cannot delete this reader because they have comments.",
       });
     }
 
-    const q = `
-      DELETE FROM book_readers
-      WHERE reader_id = ?
-    `;
+    const [savedBooks] = await makePool().execute(
+      `SELECT book_id FROM reader_saved_books WHERE reader_id = ? LIMIT 1`,
+      [Number(id)],
+    );
 
-    const [result] = await makePool().execute(q, [Number(id)]);
-
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        error: "Reader not found",
+    if (savedBooks.length > 0) {
+      return res.status(409).json({
+        error: "Cannot delete this reader because they have saved books.",
       });
     }
+
+    await makePool().execute(`DELETE FROM book_readers WHERE reader_id = ?`, [
+      Number(id),
+    ]);
 
     return res.status(200).json({
       message: "Reader deleted successfully",
@@ -103,7 +123,6 @@ export const deleteReaderById = async (req, res) => {
     });
   }
 };
-
 export const updateReaderById = async (req, res) => {
   try {
     const { id } = req.params;

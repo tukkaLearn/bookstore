@@ -2,14 +2,20 @@ import { Navigate, Outlet } from "react-router-dom";
 import Loader from "../components/Loader";
 import { useAuth } from "../features/auth/useAuth";
 
-export default function ProtectedRoute() {
+export default function ProtectedRoute({ adminOnly = false }) {
   const { user, loading } = useAuth();
-
-  console.log(user);
 
   if (loading) {
     return <Loader />;
   }
 
-  return user ? <Outlet /> : <Navigate to="/login" replace />;
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (adminOnly && user.reader_role !== "admin") {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
 }
